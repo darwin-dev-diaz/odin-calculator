@@ -123,3 +123,20 @@ body{
     background-color: var(--mon-yellow);
     color: var(--mon-black);
 }
+
+.blink-class{
+    animation: blink .25s linear 1;
+}
+
+@keyframes blink{
+    25% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    75% {
+        opacity: 1;
+    }
+}
+
