@@ -16,7 +16,7 @@ const currentInput = document.querySelector(".current-input");
 let clearOnNextNum = false;
 function updateCurrentInput(type, entry) {
 	// numbers
-  if (type === 0 && (currentInput.textContent.length <= 17 || clearOnNextNum)) {
+  if (type === 0 && (currentInput.textContent.length <= 14 || clearOnNextNum)) {
     if (currentInput.textContent === "0" || clearOnNextNum) {
       currentInput.textContent = entry;
       clearOnNextNum = false;
@@ -56,16 +56,23 @@ function updateCurrentInput(type, entry) {
 }
 
 function calculate(equationObj){
+	let returnNum = 0;
 	switch(equationObj.operation){
 		case '×':
-			return equationObj.firstNumber * equationObj.secondNumber;
+			returnNum = equationObj.firstNumber * equationObj.secondNumber;
+			break;
 		case '÷':
-			return equationObj.firstNumber / equationObj.secondNumber;
+			returnNum = (Math.round((equationObj.firstNumber / equationObj.secondNumber)*100)/100);
+			break;
 		case '+':
-			return equationObj.firstNumber + equationObj.secondNumber;
+			returnNum = equationObj.firstNumber + equationObj.secondNumber;
+			break;
 		case '-':
-			return equationObj.firstNumber - equationObj.secondNumber;
+			returnNum = equationObj.firstNumber - equationObj.secondNumber;
+			break;
 	}
+	if(returnNum >= 10e14) returnNum = returnNum.toExponential(2);
+	return returnNum;
 }
 
 const numberButtons = document.querySelectorAll(".number-button");
