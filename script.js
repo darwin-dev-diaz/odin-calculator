@@ -12,6 +12,10 @@ function clearEquationObj(){
 	};
 }
 
+function clearOperationColor(){
+  operationButtons.forEach((button)=>{button.classList.remove('hover')});
+}
+
 const currentInput = document.querySelector(".current-input");
 let clearOnNextNum = false;
 function updateCurrentInput(type, entry) {
@@ -28,6 +32,13 @@ function updateCurrentInput(type, entry) {
   //operations
   if (type === 1) {
     // make number flash
+    currentInput.classList.add("blink-class");
+    setTimeout(() => {
+      currentInput.classList.remove('blink-class');
+    }, 300);
+
+    //make operation button glow color
+
     // fill obj with first number and operation
     if (!equationObj.firstNumber) {
       equationObj.firstNumber = +currentInput.textContent;
@@ -86,15 +97,20 @@ const operationButtons = document.querySelectorAll(".sign-button");
 operationButtons.forEach((operationButton) => {
   operationButton.addEventListener("click", () => {
     updateCurrentInput(1, operationButton.textContent);
+
+    clearOperationColor();
+    operationButton.classList.add('hover');
   });
 });
 
 const clearButton = document.querySelector(".clear-button");
 clearButton.addEventListener("click", () => {
   updateCurrentInput(2, clearButton.textContent);
+  clearOperationColor();
 });
 
 const equalButton = document.querySelector(".equals-button");
 equalButton.addEventListener("click", () => {
   updateCurrentInput(3, equalButton.textContent);
+  clearOperationColor();
 });

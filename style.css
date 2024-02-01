@@ -115,7 +115,8 @@ body{
 .sign-button{
     font-size: 30px;
 }
-.sign-button:hover{
+.sign-button:hover,
+.sign-button.hover{
     background-color: var(--mon-orange);
     color: var(--mon-black);
 }
@@ -125,11 +126,11 @@ body{
 }
 
 .blink-class{
-    animation: blink .25s linear 1;
+    animation: blink .3s linear .3;
 }
 
 @keyframes blink{
-    25% {
+    0% {
         opacity: 0;
     }
     50% {
