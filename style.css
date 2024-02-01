@@ -13,12 +13,16 @@
 html,
 body{
     background-color: var(--mon-black);
-    height: 99%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    user-select: none;
 }
 body{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    flex-direction: column;
 
     color: var(--mon-white);
     font-family: 'Inconsolata';
@@ -30,6 +34,7 @@ body{
     /* justify-content: center; */
     flex-direction: column;
     background-color: var(--mon-grey);
+    margin-top: 45px;
     padding: 10px;
     width: 400px;
     height: 600px;
@@ -141,3 +146,17 @@ body{
     }
 }
 
+.footer{
+    width: 100%;
+    background-color: var(--mon-grey);
+    text-align: center;
+    padding: 10px 0 10px 0;
+    font-size: 24px;
+}
+
+.footer > a {
+    color: var(--mon-white);
+}
+.footer > a:hover {
+    color: var(--mon-blue);
+}
