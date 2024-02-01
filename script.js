@@ -18,8 +18,9 @@ function clearOperationColor(){
 
 const currentInput = document.querySelector(".current-input");
 let clearOnNextNum = false;
+let savedSecondNumber = 0;
 function updateCurrentInput(type, entry) {
-	// numbers
+  // numbers
   if (type === 0 && (currentInput.textContent.length <= 14 || clearOnNextNum)) {
     if (currentInput.textContent === "0" || clearOnNextNum) {
       currentInput.textContent = entry;
@@ -37,16 +38,17 @@ function updateCurrentInput(type, entry) {
       currentInput.classList.remove('blink-class');
     }, 300);
 
-    //make operation button glow color
-
     // fill obj with first number and operation
     if (!equationObj.firstNumber) {
       equationObj.firstNumber = +currentInput.textContent;
     } 
 		equationObj.operation = entry;
+    currentInput.textContent = 0;
 
     clearOnNextNum = true;
   }
+
+
   //clear
   if (type === 2) {
     currentInput.textContent = 0;
@@ -56,14 +58,31 @@ function updateCurrentInput(type, entry) {
   if (type === 3) {
     if (equationObj.firstNumber && equationObj.operation) {
       equationObj.secondNumber = +currentInput.textContent;
+      savedSecondNumber = +currentInput.textContent;
 			currentInput.textContent = calculate(equationObj);
 			clearEquationObj();
 			clearOnNextNum = true;
     }
   }
+}
 
 
-  console.log(equationObj);
+const enteredInput = document.querySelector(".entered-input");
+function updateEnteredInput(type) {
+  //operation
+  if(type === 1){
+    enteredInput.textContent = `${equationObj.firstNumber} ${equationObj.operation} `;
+  }
+
+  //clear
+  if(type === 2){
+    enteredInput.textContent = 0;
+  }
+
+  //enter
+  if(type === 3){
+    enteredInput.textContent = enteredInput.textContent + `${savedSecondNumber} = ${currentInput.textContent}`;
+  }
 }
 
 function calculate(equationObj){
@@ -97,6 +116,7 @@ const operationButtons = document.querySelectorAll(".sign-button");
 operationButtons.forEach((operationButton) => {
   operationButton.addEventListener("click", () => {
     updateCurrentInput(1, operationButton.textContent);
+    updateEnteredInput(1);
 
     clearOperationColor();
     operationButton.classList.add('hover');
@@ -106,11 +126,13 @@ operationButtons.forEach((operationButton) => {
 const clearButton = document.querySelector(".clear-button");
 clearButton.addEventListener("click", () => {
   updateCurrentInput(2, clearButton.textContent);
+  updateEnteredInput(2);
   clearOperationColor();
 });
 
 const equalButton = document.querySelector(".equals-button");
 equalButton.addEventListener("click", () => {
   updateCurrentInput(3, equalButton.textContent);
+  updateEnteredInput(3);
   clearOperationColor();
 });
