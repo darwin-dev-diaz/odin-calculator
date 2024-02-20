@@ -24,8 +24,8 @@ body{
     justify-content: space-between;
     flex-direction: column;
 
-    color: var(--mon-white);
-    font-family: 'Inconsolata';
+        color: var(--mon-white);
+        font-family: 'Inconsolata';
 }
 
 .calculator{
